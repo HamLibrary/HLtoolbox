@@ -19,7 +19,11 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%,$(BUILD_DIR)/%,$(SRC_FILES:.c=.o))
 DEP_FILES := $(OBJ_FILES:.o=.d)
 
 CC := clang
+<<<<<<< HEAD
 IFLAGS := -I$(GLOBAL_INCLUDE_DIR)/** -I$(INCLUDE_DIR)/**
+=======
+IFLAGS := -I$(GLOBAL_INCLUDE_DIR) -I$(INCLUDE_DIR)
+>>>>>>> 40d6680 (Initial)
 LFLAGS := -L$(GLOBAL_LIB_DIR) -L$(LIB_DIR)
 DFLAGS := -MP -MD
 CFLAGS := -Wall -Wextra -g -O0

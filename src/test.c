@@ -1,31 +1,33 @@
-#include <hl_type.h>
-#include <stdint.h>
-#include <stdio.h>
-#include "stack.h"
 
-void test_stack();
+#if !defined TEST_STACK && !defined TEST_HSON && !defined TEST_HCSV
+    #define TEST_ALL
+#endif
+
+
+// might remove these pre-processing
+#if defined TEST_ALL || defined TEST_STACK
+    #include "test_stack.c"
+#endif
+
+#if defined TEST_ALL || defined TEST_HSON
+    #include "test_hson.c"
+#endif
+
+#if defined TEST_ALL || defined TEST_HCSV
+    #include "test_hcsv.c"
+#endif
 
 int main()
 {
-    test_stack();
-}
+    #if defined TEST_ALL || defined TEST_STACK
+        test_stack();
+    #endif
 
-void test_stack()
-{
-    printf("STACK TEST STARTED\n");
-    stack stk = stack_create(sizeof(u16));
-    printf("[STK_ITM_SZ]: %zu\n", stk.itm_sz);
-    
-    for (u16 i = 0;i < 25;++i)
-    {
-        stack_push(&stk, &i);
-        printf("[STK_ITM_%zu]: %u ", stk.len, *((u16 *)stack_peek(&stk)));
-    }
-    printf("\n\n");
-    while (stk.len != 0)
-    {
-        printf("[STK_POP]: %u ", *((u16 *)stack_pop(&stk)));
-    }
-    stack_free(&stk);
-    printf("\nSTACK TEST FINISHED\n");
+    #if defined TEST_ALL || defined TEST_HSON
+        test_hson();
+    #endif
+
+    #if defined TEST_ALL || defined TEST_HCSV
+        test_hcsv();
+    #endif
 }
